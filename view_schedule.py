@@ -72,7 +72,7 @@ if __name__ == '__main__':
 #		sys.exit(1)
 	show_detail = True
 #	db_name = sys.argv[1]
-	db_name = "DB/schedule.db"
+	db_name = "dat.sqlite3"
 	for arg in sys.argv:
 		if arg == "-s":
 			show_detail = False

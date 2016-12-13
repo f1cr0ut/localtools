@@ -1,6 +1,6 @@
 CREATE TABLE `related_revision` (
     `id`                INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-    `parent_id`         INTEGER NOT NULL,
+    `parent_ticket_id`  INTEGER NOT NULL,
     `revision_string`   TEXT NOT NULL,
     `deleted`           INTEGER NOT NULL DEFAULT 0
 );
@@ -42,10 +42,19 @@ CREATE TABLE `ticket_tags` (
     `deleted`           INTEGER NOT NULL DEFAULT 0
 );
 
-CREATE TABLE `ticket_last_update_stamp` (
+CREATE TABLE `postscript` (
     `id`                INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-    `parent_id`         INTEGER NOT NULL,
+    `parent_ticket_id`  INTEGER NOT NULL,
     `description`       TEXT NOT NULL,
     `updated_time`      TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+    `deleted`           INTEGER NOT NULL DEFAULT 0
 );
 
+CREATE TABLE `media` (
+    `id`                INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+    `parent_ticket_id`  INTEGER NOT NULL,
+    `description`       TEXT,
+    `data`              BLOB NOT NULL,
+    `updated_time`      TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+    `deleted`           INTEGER NOT NULL DEFAULT 0
+);

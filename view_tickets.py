@@ -51,9 +51,10 @@ def MainDisp(db_name, show_detail):
 			Println('	進捗:' + str(float(row[progressnum]) * 100) + "%")
 			if row[deadlinenum] != None:
 				Println('	期限:' + row[deadlinenum])
-			PrintSub(conn, u"select related_ticket_id from related_ticket_id where parent_ticket_id="+str(row[0])+";", "	関連チケット:", True)
-			PrintSub(conn, u"select text from ticket_tags where parent_ticket_id="+str(row[0])+";", "	関連タグ:", False)
-			PrintSub(conn, u"select worker from ticket_authors where parent_ticket_id="+str(row[0])+";", "	担当者:", False)
+			PrintSub(conn, u"select related_ticket_id from related_ticket_id where deleted=0 and parent_ticket_id="+str(row[0])+";", "	子チケット:", True)
+			PrintSub(conn, u"select parent_ticket_id from related_ticket_id where deleted=0 and related_ticket_id="+str(row[0])+";", "	親チケット:", True)
+			PrintSub(conn, u"select text from ticket_tags where deleted=0 and parent_ticket_id="+str(row[0])+";", "	関連タグ:", False)
+			PrintSub(conn, u"select worker from ticket_authors where deleted=0 and parent_ticket_id="+str(row[0])+";", "	担当者:", False)
 			# print details
 			if row[bodynum] != "" and row[bodynum] != None:
 				Println("詳細:")
@@ -69,7 +70,7 @@ if __name__ == '__main__':
 #		sys.exit(1)
 	show_detail = True
 #	db_name = sys.argv[1]
-	db_name = "DB/ticket.db"
+	db_name = "dat.sqlite3"
 	for arg in sys.argv:
 		if arg == "-s":
 			show_detail = False

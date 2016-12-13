@@ -14,7 +14,7 @@ def MainDisp(db_name, table_name):
 		return
 	conn = sqlite3.connect(db_name)
 	conn.cursor()
-	sql = u"select id from " + table_name + " where finished=0 order by id desc limit 1;"
+	sql = u"select ROWID from " + table_name + " order by id desc limit 1;"
 	for row in conn.execute(sql):
 		Println(str(row[0]))
 	conn.close()
