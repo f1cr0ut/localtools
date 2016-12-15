@@ -31,7 +31,7 @@ insert into related_ticket_id (
 
 -- add revision info
 insert into related_revision (
-    parent_id,
+    parent_ticket_id,
     revision_string
 ) values (
     0,
@@ -59,8 +59,8 @@ insert into ticket_tags (
 );
 
 -- add ticket timestamp
-insert into ticket_last_update_stamp (
-    parent_id,
+insert into postscript (
+    parent_ticket_id,
     description
 ) values (
     0,

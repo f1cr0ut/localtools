@@ -55,12 +55,21 @@ def MainDisp(db_name, show_detail):
 			PrintSub(conn, u"select parent_ticket_id from related_ticket_id where deleted=0 and related_ticket_id="+str(row[0])+";", "	親チケット:", True)
 			PrintSub(conn, u"select text from ticket_tags where deleted=0 and parent_ticket_id="+str(row[0])+";", "	関連タグ:", False)
 			PrintSub(conn, u"select worker from ticket_authors where deleted=0 and parent_ticket_id="+str(row[0])+";", "	担当者:", False)
+			PrintSub(conn, u"select revision_string from related_revision where deleted=0 and parent_ticket_id="+str(row[0])+";", "	関連リビジョン:", False)
 			# print details
 			if row[bodynum] != "" and row[bodynum] != None:
 				Println("詳細:")
 				detail = row[bodynum].replace('\r\n', '\n')
 				detail = detail.replace('\r', '\n')
 				Println('\t' + detail.replace('\n', '\n\t'))
+			# print postscript
+			nnum = 1 
+			for rr in conn.execute("select description, updated_time from postscript where parent_ticket_id=" + str(row[0]) + " order by updated_time asc;"):
+				Println("追記" + str(nnum) +": (" + str(rr[1]) + ")")
+				detail = rr[0].replace('\r\n', '\n')
+				detail = detail.replace('\r', '\n')
+				Println('\n\t' + detail.replace('\n', '\n\t') + '\n')
+				nnum += 1
 			Println('')
 	conn.close()
 

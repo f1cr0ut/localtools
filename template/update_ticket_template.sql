@@ -16,7 +16,7 @@ deleted = 0
 where id = 0;
 
 insert into related_revision(
-    parent_id,
+    parent_ticket_id,
     revsion_string,
     deleted
 )values(
@@ -57,8 +57,8 @@ insert into ticket_tags(
     0
 );
 
-insert into ticket_last_update_stamp(
-    parent_id,
+insert into postscript (
+    parent_ticket_id,
     description
 )values(
     0,
