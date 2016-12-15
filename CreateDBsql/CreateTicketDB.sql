@@ -16,7 +16,7 @@ CREATE TABLE `ticket` (
     `id`                INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
     `title`             TEXT NOT NULL,
     `body`              TEXT,
-    `category`          TEXT NOT NULL DEFAULT 'todo',   /* bug,test,add,remove,proposal,create,delete,investigate,todo */
+    `category_id`       INTEGER NOT NULL,
     `progress`          REAL NOT NULL DEFAULT 0.0,      /* [0.0, 1.0] 1.0 == 100% */
     `priority`          INTEGER,                        /* disallow negative value */
     `start_day`         TEXT,
@@ -55,5 +55,11 @@ CREATE TABLE `media` (
     `description`       TEXT,
     `data`              BLOB NOT NULL,
     `updated_time`      TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `deleted`           INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE `ticket_category_list` (
+    `id`                INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+    `name`              TEXT NOT NULL,
     `deleted`           INTEGER NOT NULL DEFAULT 0
 );

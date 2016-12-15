@@ -3,7 +3,7 @@
 insert into ticket (
     title,
     body,
-    category,
+    category_id,
     progress,
     priority,
     start_day,
@@ -12,7 +12,7 @@ insert into ticket (
 ) values (
     '',
     '',
-    'bug',
+    1,
     0.0,
     10,
     '2016-01-01',
@@ -66,4 +66,12 @@ insert into postscript (
     0,
     ''
 );
+
+-- add ticket timestamp
+insert into ticket_category_list (
+    name
+) values (
+    ''
+);
+
 */

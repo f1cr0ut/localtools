@@ -4,7 +4,7 @@ title =
 '',
 body =
 '',
-category = '',
+category_id = 1,
 progress = 0.0,
 priority = 0,
 start_day = '2016-01-01',

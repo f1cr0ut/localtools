@@ -25,7 +25,7 @@ def MainDisp(db_name, show_detail):
 		return
 	conn = sqlite3.connect(db_name)
 	conn.cursor()
-	sql = u"select id, finished, priority, title, body, progress, deadline, category from ticket where deleted=0 order by priority desc;"
+	sql = u"select id, finished, priority, title, body, progress, deadline, category_id from ticket where deleted=0 order by priority desc;"
 	bodynum = 4
 	prioritynum = 2
 	progressnum = 5
@@ -51,10 +51,10 @@ def MainDisp(db_name, show_detail):
 		Println(print_str)
 		# print ticket status
 		if show_detail == True:
-			Println('	カテゴリ:' + str(row[categorynum]))
 			Println('	進捗:' + str(float(row[progressnum]) * 100) + "%")
 			if row[deadlinenum] != None:
 				Println('	期限:' + row[deadlinenum])
+			PrintSub(conn, u"select name from ticket_category_list where deleted=0 and id="+str(row[categorynum])+";", "	カテゴリ:", False)
 			PrintSub(conn, u"select related_ticket_id from related_ticket_id where deleted=0 and parent_ticket_id="+str(row[0])+";", "	子チケット:", True)
 			PrintSub(conn, u"select parent_ticket_id from related_ticket_id where deleted=0 and related_ticket_id="+str(row[0])+";", "	親チケット:", True)
 			PrintSub(conn, u"select text from ticket_tags where deleted=0 and parent_ticket_id="+str(row[0])+";", "	関連タグ:", False)
