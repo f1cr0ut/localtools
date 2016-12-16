@@ -25,23 +25,21 @@ def MainDisp(db_name, show_detail):
 		return
 	conn = sqlite3.connect(db_name)
 	conn.cursor()
-	sql = u"select id, finished, priority, title, body, progress, deadline, category_id from ticket where deleted=0 order by priority desc;"
-	bodynum = 4
-	prioritynum = 2
-	progressnum = 5
-	deadlinenum = 6
-	categorynum = 7
+	sql = u"select id, finished, created, priority, title, body, progress, deadline, category_id from ticket where deleted=0 order by priority desc;"
 	finishednum = 1
+	prioritynum = 3
+	bodynum = 5
+	progressnum = 6
+	deadlinenum = 7
+	categorynum = 8
 	for row in conn.execute(sql):
 		print_str = "| "
 		count = 0
 		for c in row:
-			if count == progressnum or count == deadlinenum or count == categorynum or count == bodynum:
+			if count == progressnum or count == deadlinenum or count == categorynum or count == bodynum or count == prioritynum:
 				count += 1
 				continue
-			if count == prioritynum:
-				print_str += "pri:" + str(c).replace('\n','') + " | "
-			elif count == finishednum:
+			if count == finishednum:
 				print_str += "[完了] | " if c == int(1) else ""
 			else:
 				print_str += str(c).replace('\n','') + " | "
@@ -54,6 +52,8 @@ def MainDisp(db_name, show_detail):
 			Println('	進捗:' + str(float(row[progressnum]) * 100) + "%")
 			if row[deadlinenum] != None:
 				Println('	期限:' + row[deadlinenum])
+			if row[prioritynum] != None:
+				Println('	優先度:' + str(row[prioritynum]))
 			PrintSub(conn, u"select name from ticket_category_list where deleted=0 and id="+str(row[categorynum])+";", "	カテゴリ:", False)
 			PrintSub(conn, u"select related_ticket_id from related_ticket_id where deleted=0 and parent_ticket_id="+str(row[0])+";", "	子チケット:", True)
 			PrintSub(conn, u"select parent_ticket_id from related_ticket_id where deleted=0 and related_ticket_id="+str(row[0])+";", "	親チケット:", True)
