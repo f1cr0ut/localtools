@@ -60,6 +60,6 @@ CREATE TABLE `media` (
 
 CREATE TABLE `ticket_category_list` (
     `id`                INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-    `name`              TEXT NOT NULL,
+    `name`              TEXT NOT NULL UNIQUE,
     `deleted`           INTEGER NOT NULL DEFAULT 0
 );
