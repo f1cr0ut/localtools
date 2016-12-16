@@ -2,6 +2,7 @@ CREATE TABLE `document` (
     `id`                INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
     `title`             TEXT,
     `description`       TEXT,
+    `version`           TEXT,
     `created`           TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `deleted`           INTEGER NOT NULL DEFAULT 0
 );

@@ -24,7 +24,7 @@ def MainDisp(db_name, Id, show_detail):
 		print("db not found")
 		return
 	conn = sqlite3.connect(db_name)
-	sql = u"insert into ticket_last_update_stamp(parent_id, description) values(" + str(Id) + ", 'deleted from command');"
+	sql = u"insert into postscript(parent_ticket_id, description) values(" + str(Id) + ", 'deleted from command');"
 	conn.execute(sql)
 	conn.commit()
 	try:
@@ -52,7 +52,7 @@ def MainDisp(db_name, Id, show_detail):
 	except:
 		pass
 	try:
-		sql = u"update related_revision set deleted=1 where parent_id=" + str(Id) + ";"
+		sql = u"update related_revision set deleted=1 where parent_ticket_id=" + str(Id) + ";"
 		conn.execute(sql)
 		conn.commit()
 	except:
